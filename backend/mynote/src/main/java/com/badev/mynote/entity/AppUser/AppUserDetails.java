@@ -8,7 +8,7 @@ import java.util.Collections;
 
 public class AppUserDetails implements UserDetails {
 
-    private  AppUser user;
+    private AppUser user;
 
     public AppUserDetails(AppUser user) {
         this.user = user;

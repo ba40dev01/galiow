@@ -2,7 +2,7 @@ package com.badev.mynote.service.AppUser;
 
 import com.badev.mynote.entity.AppUser.AppUser;
 import com.badev.mynote.entity.AppUser.AppUserDetails;
-import com.badev.mynote.repository.AppUser.AppUserRepository;
+import com.badev.mynote.repository.appUser.AppUserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;

@@ -1,7 +1,7 @@
 package com.badev.mynote.service.AppUser;
 
 import com.badev.mynote.entity.AppUser.AppRole;
-import com.badev.mynote.repository.AppUser.AppRoleRepository;
+import com.badev.mynote.repository.appUser.AppRoleRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
