@@ -6,6 +6,8 @@ import com.badev.mynote.entity.AppUser.AppUser;
 import com.badev.mynote.repository.appUser.AppRoleRepository;
 import com.badev.mynote.repository.appUser.AppUserRepository;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
@@ -20,6 +22,7 @@ public class AppUserService {
     private final AppUserRepository repository;
     private final AppRoleRepository appRoleRepository;
     private final PasswordEncoder encoder;
+
 
     public AppUser save(AppUserDto dto){
         Optional<AppUser> check = repository.findByUsername(dto.phoneNumber);

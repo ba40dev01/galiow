@@ -1,9 +1,14 @@
 package com.badev.mynote.service.note;
 
 import com.badev.mynote.dto.NoteDto;
+import com.badev.mynote.entity.AppUser.AppUser;
 import com.badev.mynote.entity.note.Note;
+import com.badev.mynote.repository.appUser.AppUserRepository;
 import com.badev.mynote.repository.note.NoteRepository;
+import jakarta.servlet.http.HttpServletRequest;
 import lombok.RequiredArgsConstructor;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
@@ -14,17 +19,19 @@ import java.util.Optional;
 public class NoteService {
     private final NoteRepository noteRepository;
 
-    public String save(NoteDto dto){
-        System.out.println(dto.toString());
+
+    public String save(NoteDto dto,AppUser user){
         try {
+                Note note = new Note();
+                note.setAppUser(user);
+                note.setTitle(dto.getTitle());
+                note.setNote(dto.getNote());
+                note.setCreateAt(new Date());
+                note.setUpdatedAt(new Date());
+                noteRepository.save(note);
 
-            Note note = new Note();
-            note.setTitle(dto.getTitle());
-            note.setNote(dto.getNote());
-            note.setCreateAt(new Date());
-            note.setUpdatedAt(new Date());
 
-            noteRepository.save(note);
+
         } catch (Exception e) {
             throw new RuntimeException(e);
         }
