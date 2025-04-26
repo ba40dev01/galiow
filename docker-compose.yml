@@ -1,27 +1,21 @@
-version: '3.8'
-
 services:
   db:
-    image: mysql:latest
+    image: 'mysql:latest'
     environment:
-      MYSQL_DATABASE: myn​ote
-      MYSQL_USER: user
-      MYSQL_PASSWORD: myn​ote@123
-      MYSQL_ROOT_PASSWORD: admin@123
-    volumes:
-      - db_data:/var/lib/mysql
+      - 'MYSQL_DATABASE=mynote'
+      - 'MYSQL_PASSWORD=mynote@123'
+      - 'MYSQL_ROOT_PASSWORD=admin@123'
+      - 'MYSQL_USER=user'
     ports:
-      - "3306:3306"
-
+      - '3306:3306'
   phpmyadmin:
-    image: phpmyadmin/phpmyadmin:latest
-    depends_on:
-      - db
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-1
     environment:
       PMA_HOST: db
       PMA_USER: root
       PMA_PASSWORD: admin@123
     ports:
       - "8081:80"
-
-  
+    depends_on:
+      - db
