@@ -11,15 +11,16 @@ A React + Spring Boot application with JWT authentication and CRUD operations.
 - Specification
 - Responsive UI
 
+
 ## Technologies
 
 - **Frontend**: React 18, Material-UI, Axios
 - **Backend**: Spring Boot 3, Spring Security, JWT, MySql
-
+- **Deployment**: Docker
 ## Setup
 
 1. Clone the repository
-2. Run `docker-compose up --build`
+2. Run `docker-compose up --build
 3. Backend runs on `http://localhost:8080`
 4. Access frontend at `http://localhost:3000`
 5. Register a new User
