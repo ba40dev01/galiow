@@ -41,7 +41,7 @@ export const AuthProvider = ({ children }) => {
       localStorage.setItem("token", token);
       setToken(token);
       setUser(user);
-      navigate("/dashboard");
+      navigate("/login");
     } catch (error) {
       console.error("Registration failed:", error);
       throw error;
@@ -54,9 +54,13 @@ export const AuthProvider = ({ children }) => {
     setUser(null);
     navigate("/login");
   };
-
+  const isAuthenticated = () => {
+    return !!token;
+  };
   return (
-    <AuthContext.Provider value={{ user, token, login, register, logout }}>
+    <AuthContext.Provider
+      value={{ user, token, isAuthenticated, login, register, logout }}
+    >
       {children}
     </AuthContext.Provider>
   );

@@ -9,6 +9,10 @@ import {
   Box,
   Alert,
   CircularProgress,
+  FormControl,
+  InputLabel,
+  Select,
+  MenuItem,
 } from "@mui/material";
 import noteService from "../api/noteService";
 
@@ -19,10 +23,19 @@ const NoteFormPage = () => {
   const [formData, setFormData] = useState({
     title: "",
     note: "",
+    category: "PERSONAL", // Default category
   });
   const [error, setError] = useState("");
   const [loading, setLoading] = useState(false);
   const [isEditing, setIsEditing] = useState(false);
+
+  // Available categories
+  const categories = [
+    { value: "PERSONAL", label: "Personal" },
+    { value: "WORK", label: "Work" },
+    { value: "STUDY", label: "Study" },
+    { value: "IDEAS", label: "Ideas" },
+  ];
 
   useEffect(() => {
     const fetchNote = async () => {
@@ -32,6 +45,7 @@ const NoteFormPage = () => {
         setFormData({
           title: note.title,
           note: note.note,
+          category: note.category || "PERSONAL",
         });
       } catch (error) {
         console.error("Error fetching note:", error);
@@ -62,7 +76,7 @@ const NoteFormPage = () => {
       return false;
     }
     if (!formData.note.trim()) {
-      setError("Note note is required");
+      setError("Note content is required");
       return false;
     }
     return true;
@@ -132,6 +146,22 @@ const NoteFormPage = () => {
             error={!!error}
             sx={{ mb: 3 }}
           />
+
+          <FormControl fullWidth sx={{ mb: 3 }}>
+            <InputLabel>Category</InputLabel>
+            <Select
+              name="category"
+              value={formData.category}
+              label="Category"
+              onChange={handleChange}
+            >
+              {categories.map((category) => (
+                <MenuItem key={category.value} value={category.value}>
+                  {category.label}
+                </MenuItem>
+              ))}
+            </Select>
+          </FormControl>
 
           <TextField
             fullWidth

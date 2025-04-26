@@ -36,7 +36,7 @@ const router = createBrowserRouter(
           element: <DashboardPage />,
         },
         {
-          path: "/notes/new",
+          path: "/note/new",
           element: <NoteFormPage />,
         },
         {
