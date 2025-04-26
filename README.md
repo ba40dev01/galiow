@@ -35,3 +35,6 @@ A React + Spring Boot application with JWT authentication and CRUD operations.
 - POST `/note` - Create new note
 - PATCH `/note/{id}` - update note
 - DELETE `/note/{id}` - Delete note
+
+## Demo
+url = https://galiow-1.onrender.com/
