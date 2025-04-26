@@ -72,6 +72,9 @@ public class NoteService {
             if(noteDto.getNote() !=null){
                 note.setNote(noteDto.getNote());
             }
+            if (noteDto.getCategory() !=null){
+                note.setCategory(noteDto.getCategory());
+            }
 
 
             noteRepository.save(note);
