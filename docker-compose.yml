@@ -2,29 +2,32 @@ version: '3.8'
 
 services:
   db:
-    image: 'mysql:latest'
+    image: mysql:latest
     environment:
-      - 'MYSQL_DATABASE=mynote'
-      - 'MYSQL_PASSWORD=mynote@123'
-      - 'MYSQL_ROOT_PASSWORD=admin@123'
-      - 'MYSQL_USER=user'
+      MYSQL_DATABASE: myn​ote
+      MYSQL_USER: user
+      MYSQL_PASSWORD: myn​ote@123
+      MYSQL_ROOT_PASSWORD: admin@123
+    volumes:
+      - db_data:/var/lib/mysql
     ports:
-      - '3306:3306'
+      - "3306:3306"
+
   phpmyadmin:
-    image: phpmyadmin:latest
-    container_name: phpmyadmin-1
+    image: phpmyadmin/phpmyadmin:latest
+    depends_on:
+      - db
     environment:
       PMA_HOST: db
       PMA_USER: root
       PMA_PASSWORD: admin@123
     ports:
       - "8081:80"
-    depends_on:
-      - db
- backend:
+
+  backend:
     build:
       context: ./backend/mynote
-      dockerfile: Dockerfile    # this is the one you pasted above
+      dockerfile: Dockerfile
     depends_on:
       - db
     environment:
@@ -34,12 +37,15 @@ services:
     ports:
       - "8080:8080"
 
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    depends_on:
+      - backend
+    ports:
+      - "3000:3000"
 
- frontend:
-   build:
-     context: ./frontend
-     dockerfile: Dockerfile   # see below
-   depends_on:
-     - backend
-   ports:
-     - "3000:3000"
+volumes:
+  db_data:
+
