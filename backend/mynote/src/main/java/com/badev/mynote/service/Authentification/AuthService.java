@@ -4,10 +4,8 @@ import com.badev.mynote.dto.AppUserDto;
 import com.badev.mynote.dto.AuthResponse;
 import com.badev.mynote.dto.LoginRequest;
 import com.badev.mynote.dto.RegisterRequest;
-import com.badev.mynote.entity.AppUser.AppRole;
 import com.badev.mynote.entity.AppUser.AppUser;
 import com.badev.mynote.entity.AppUser.AppUserDetails;
-import com.badev.mynote.repository.appUser.AppRoleRepository;
 import com.badev.mynote.repository.appUser.AppUserRepository;
 import com.badev.mynote.service.TokenService;
 import lombok.RequiredArgsConstructor;
@@ -29,7 +27,6 @@ public class AuthService {
     private final JwtEncoder jwtEncoder;
     private final AppUserRepository appUserRepository;
     private final PasswordEncoder passwordEncoder;
-    private final AppRoleRepository appRoleRepository;
     private final TokenService tokenService;
 
 
@@ -61,11 +58,8 @@ public class AuthService {
             return ResponseEntity.badRequest().body("Username already exists");
         }
 
-        AppRole userRole = appRoleRepository.findByName("USER")
-                .orElseGet(() -> appRoleRepository.save(new AppRole("USER")));
 
         AppUser newUser = AppUser.builder()
-                .role(userRole)
                 .email(request.getEmail())
                 .phoneNumber(request.getPhone())
                 .fullName(request.getName())

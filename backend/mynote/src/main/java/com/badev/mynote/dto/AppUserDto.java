@@ -15,15 +15,12 @@ public class AppUserDto {
     public String password;
     public String fullName;
     public String email;
-    public Long roleId;
-    public String roleName;
 
     private static AppUserDto map(AppUser appUser){
         return AppUserDto.builder()
                 .fullName(appUser.getFullName())
                 .phoneNumber(appUser.getPhoneNumber())
-                .roleName(appUser.getRole().getName())
-                .roleId(appUser.getRole().getId())
+
                 .email(appUser.getEmail())
                 .build();
     }

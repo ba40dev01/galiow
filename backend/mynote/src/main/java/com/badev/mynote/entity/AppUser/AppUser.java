@@ -23,8 +23,7 @@ public class AppUser {
     private String phoneNumber;
     private String email;
 
-    @ManyToOne
-    private AppRole role;
+
 
 
 }

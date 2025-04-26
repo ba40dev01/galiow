@@ -18,6 +18,7 @@ public class Note {
     private Long id;
     private String title;
     private String note;
+    private NoteCategory category;
     private Date createAt;
     private Date updatedAt;
 

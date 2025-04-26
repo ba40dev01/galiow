@@ -2,6 +2,7 @@ package com.badev.mynote.controller.note;
 
 import com.badev.mynote.dto.NoteDto;
 import com.badev.mynote.entity.AppUser.AppUser;
+import com.badev.mynote.entity.note.NoteCategory;
 import com.badev.mynote.service.TokenService;
 import com.badev.mynote.service.note.NoteService;
 import jakarta.servlet.http.HttpServletRequest;
@@ -20,8 +21,14 @@ public class NoteController {
     private final TokenService tokenService;
 
     @GetMapping
-    public List<NoteDto> get(){
-        return noteService.get();
+    public List<NoteDto> get(@RequestParam(required = false) NoteCategory category, HttpServletRequest request) throws Exception {
+        AppUser appUser = tokenService.getAppUserFromToken(request);
+        return noteService.get(appUser,category,null);
+    }
+    @GetMapping("/{id}")
+    public List<NoteDto> getById(@PathVariable Long id, HttpServletRequest request) throws Exception {
+        AppUser appUser = tokenService.getAppUserFromToken(request);
+        return noteService.get(appUser,null,id);
     }
     @PostMapping
     public String add(@RequestBody NoteDto dto, HttpServletRequest request) throws Exception {

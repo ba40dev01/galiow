@@ -3,17 +3,15 @@ package com.badev.mynote.service.note;
 import com.badev.mynote.dto.NoteDto;
 import com.badev.mynote.entity.AppUser.AppUser;
 import com.badev.mynote.entity.note.Note;
-import com.badev.mynote.repository.appUser.AppUserRepository;
+import com.badev.mynote.entity.note.NoteCategory;
 import com.badev.mynote.repository.note.NoteRepository;
-import jakarta.servlet.http.HttpServletRequest;
+import com.badev.mynote.specification.NoteSpecification;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.data.jpa.domain.Specification;
 import org.springframework.stereotype.Service;
 
 import java.util.Date;
 import java.util.List;
-import java.util.Optional;
 @Service
 @RequiredArgsConstructor
 public class NoteService {
@@ -27,7 +25,13 @@ public class NoteService {
                 note.setTitle(dto.getTitle());
                 note.setNote(dto.getNote());
                 note.setCreateAt(new Date());
+            if(dto.getCategory() != null){
+                note.setCategory(dto.getCategory());
+            }else {
+                note.setCategory(NoteCategory.NONE);
+            }
                 note.setUpdatedAt(new Date());
+
                 noteRepository.save(note);
 
 
@@ -38,8 +42,15 @@ public class NoteService {
         return "Note added successfully";
     }
 
-    public List<NoteDto> get() {
-        return noteRepository.findAll().stream().map(note -> NoteDto.from(note)).toList();
+    public List<NoteDto> get(AppUser appUser, NoteCategory category,Long id) {
+        if(id!=null){
+            return noteRepository.findById(id).stream().map(NoteDto::from).toList();
+        }
+        Specification<Note> spec = Specification.where(NoteSpecification.filterByAppUser(appUser))
+                .and(NoteSpecification.filterByCategory(category));
+        return noteRepository.findAll(spec).stream()
+                .map(NoteDto::from)
+                .toList();
     }
 
 
