@@ -1,0 +1,21 @@
+services:
+  db:
+    image: 'mysql:latest'
+    environment:
+      - 'MYSQL_DATABASE=mynote'
+      - 'MYSQL_PASSWORD=mynote@123'
+      - 'MYSQL_ROOT_PASSWORD=admin@123'
+      - 'MYSQL_USER=user'
+    ports:
+      - '3306:3306'
+  phpmyadmin:
+    image: phpmyadmin:latest
+    container_name: phpmyadmin-1
+    environment:
+      PMA_HOST: db
+      PMA_USER: root
+      PMA_PASSWORD: admin@123
+    ports:
+      - "8081:80"
+    depends_on:
+      - db
