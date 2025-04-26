@@ -11,6 +11,10 @@ export const AuthProvider = ({ children }) => {
 
   const login = async (username, password) => {
     try {
+      if (localStorage.getItem("token") != null) {
+        logout();
+      }
+
       const response = await api.post("/auth/login", {
         username,
         password,
@@ -29,6 +33,9 @@ export const AuthProvider = ({ children }) => {
 
   const register = async (username, name, email, phone, password) => {
     try {
+      if (localStorage.getItem("token") != null) {
+        logout();
+      }
       const response = await api.post("/auth/register", {
         username,
         name,
