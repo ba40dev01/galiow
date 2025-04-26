@@ -1,8 +1,9 @@
 package com.badev.mynote.entity.note;
 
 public enum NoteCategory {
-    PROFESSIONAL,
-    FAMILY,
-    HOBBY,
+    PERSONAL,
+    WORK,
+    STUDY,
+    IDEAS,
     NONE
 }
